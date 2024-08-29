@@ -42,6 +42,7 @@ export default defineConfig({
 				alt: "Docsforall Logo",
 				// replacesTitle: true,
 			},
+			customCss: process.env.NO_GRADIENTS ? [] : ['./src/styles/landing.css'],
 			components: {
 				SiteTitle: "./src/components/starlight/SiteTitle.astro",
 			},
