@@ -2,17 +2,16 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import { makeLocalesConfig } from "./config/locales";
 import node from "@astrojs/node";
-
-const site = "https://docsforall.com/";
-const googleAds = "ca-pub-2130210715518535";
-const github = "https://github.com/Anakonn/docsforall";
+import { siteConfig } from "./config/site";
 
 // https://astro.build/config
 export default defineConfig({
-	site,
+	site: siteConfig.url,
+	base: siteConfig.base,
+	trailingSlash: "always",
 	integrations: [
 		starlight({
-			title: "Docsforall",
+			title: siteConfig.title,
 			defaultLocale: "en",
 			locales: makeLocalesConfig(),
 			head: [
@@ -29,13 +28,22 @@ export default defineConfig({
 					tag: "script",
 					attrs: {
 						async: true,
-						src: `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${googleAds}`,
+						src: siteConfig.googleAdsSrc,
 						crossorigin: "anonymous",
 					},
 				},
 			],
 			social: {
-				github: github,
+				github: siteConfig.githubUrl,
+			},
+			logo: {
+				dark: "./src/assets/logo-dark.svg",
+				light: "./src/assets/logo.svg",
+				alt: "Docsforall Logo",
+				// replacesTitle: true,
+			},
+			components: {
+				SiteTitle: "./src/components/starlight/SiteTitle.astro",
 			},
 			sidebar: [
 				{
